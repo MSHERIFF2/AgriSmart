@@ -7,7 +7,15 @@
 	</head>
 	<body>
 		<h2>Welcome to your Dashboard, {{ user }}</h2>
-		<p>Here is your dashboard content. </p>
+		<a href="/create_quiz">Create a New Quiz</a>
+		<h3>Your Quizzes:</h3>
+		<ul>
+			{% for quiz in quizzez %}
+			<li>{{ quiz.title }} - <a href="/quiz/{{ quiz.id }}">View</a></li>
+			{% else %}
+			<li>No quizzes available.</li>
+			{% endfor %}
+		</ul>
 		<a href="/logout">Logout</a>
 	</body>
 </html>

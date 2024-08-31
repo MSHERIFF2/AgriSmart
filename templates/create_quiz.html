@@ -1,0 +1,18 @@
+<!-- templates/create_quiz.html -->
+<!DOCTYPE html>
+<html lan="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Create Quiz</title>
+	</head>
+	<body>
+		<h2>Create a New Quiz </h2>
+		<form method="post" action="/create_quiz">
+			<label for="title">Quiz Title:</label>
+			<input type="text" id="title" name="title" required><br><br>
+			<label for="description">Description:</label>
+			<textarea id="description" name="description"></textarea><br><br>
+			<input type="submit" value="create Quiz">
+		</form>
+	</body>
+</html>

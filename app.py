@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_bcrypt import Bcrypt
+from datetime import datetime
+
 
 
 app = Flask(__name__)
@@ -19,6 +21,19 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
+#Define the Quiz model
+class Quiz(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(120), nullable=False)
+    description = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    questions = db.relationship('Question', backref='quiz', lazy=True)
+#Define the Question model
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    question_text = db.Column(db.String(200), nullable=False)
+    answer = db.Column(db.String(100), nullable=False)
+    quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
 
 #Initialize the database (Run this once)
 with app.app_context():
@@ -40,10 +55,22 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html')
 
+@app.route('/create_quiz', methods=['GET' 'POST'])
+def create_quiz():
+    if request.method == 'POST':
+        title = request.form['title']
+        description = request.form.get('description', '')
+        new_quiz = Quiz(title=title, description=description)
+        db.session.add(new_quiz)
+        db.session.commit()
+        return redirect(url_for('dashboard'))
+    return render_template('create_quiz.html'))
+
 @app.route('/dashboard')
 def dashboard():
     if 'user' in session:
-        return render_template('dashboard.html', user=session['user'])
+        quizzes = Quiz.query.all()
+        return render_template('dashboard.html', user=session['user'], quizzes=quizzes)
     else:
         return redirect(url_for('home'))
 
