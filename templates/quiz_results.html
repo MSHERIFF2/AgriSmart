@@ -1,13 +1,8 @@
 <!-- templates/quiz_results.html -->
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Quiz  Results</title>
-	</head>
-	<body>
+{% extends 'base.html' %}
+		{% bock title %}Quiz  Results{% endblock %}
+{% block content %}
 		<h2>Quiz Results for, "{{ quiz.title }}"</h2>
 		<p>Your score: {{ score }} out of {{ total_questions }}</p>
 		<a href="/dashboard">Back to Dashboard</a>
-	</body>
-</html>
+{% endblock %}
