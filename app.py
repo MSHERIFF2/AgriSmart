@@ -64,7 +64,7 @@ def create_quiz():
         db.session.add(new_quiz)
         db.session.commit()
         return redirect(url_for('dashboard'))
-    return render_template('create_quiz.html'))
+    return render_template('create_quiz.html')
 
 @app.route('/dashboard')
 def dashboard():
@@ -93,6 +93,27 @@ def login():
         return redirect(url_for('dashboard'))
     else:
         return redirect(url_for('home'))
+
+@app.route('/quiz/<int:quiz_id>', methods=['GET', 'POST'])
+def take_quiz(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    if request.method == 'POST':
+        #Logic to handle the submission of quiz answers
+        answers = request.form.getlist('answers')
+        score = 0
+        for i, question in enumerate(quiz.questions):
+            if i < len(answers) and answer[i].strip().lower() == question.answer.strip().lower():
+                score += 1
+        #store results in session or database
+        session['score'] = score
+        return redirect(url_for('quiz_results', quiz_id=quiz.id))
+    return render_template('take_quiz.html', quiz=quiz)
+@pp.route('/quiz/<int:quiz_id>/results')
+def quiz_results(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    score = session.get('score', 0)
+    total_questions = len(quiz.questions)
+    return render_template('quiz_results.html', score=score, total_questions=total_questions, quiz=quiz)
 
 @app.route('/logout')
 def logout():

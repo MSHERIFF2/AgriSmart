@@ -1,0 +1,21 @@
+<!-- templates/take_quiz.html -->
+<!DOCTYPE html>
+<html lan="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>{{ quiz.title }}</title>
+	</head>
+	<body>
+		<h2>{{ quiz.title }}</h2>
+		<p>{{ quiz.description }}</p>
+		<form method="post">
+			{% for question in quiz.questions %}
+			<div>
+				<label>{{ loop.index }}. {{ question.question_text }}</label><br>
+				<input type="text" name="answers" required><br><br>
+			</div>
+			{% endfor %}
+			<input type="submit" value="Submit Quiz">
+		</form>
+	</body>
+</html>
