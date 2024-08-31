@@ -108,7 +108,7 @@ def take_quiz(quiz_id):
         session['score'] = score
         return redirect(url_for('quiz_results', quiz_id=quiz.id))
     return render_template('take_quiz.html', quiz=quiz)
-@pp.route('/quiz/<int:quiz_id>/results')
+@app.route('/quiz/<int:quiz_id>/results')
 def quiz_results(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
     score = session.get('score', 0)
