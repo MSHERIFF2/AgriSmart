@@ -1,21 +1,23 @@
 <!-- templates/dashboard.html -->
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Dashboard</title>
-	</head>
-	<body>
+{% extends 'base.html' %}
+
+{% bock title %}Dashboard{% endblock %}
+
+{% block content %}
+
 		<h2>Welcome to your Dashboard, {{ user }}</h2>
 		<a href="/create_quiz">Create a New Quiz</a>
 		<h3>Your Quizzes:</h3>
 		<ul>
-			{% for quiz in quizzez %}
-			<li>{{ quiz.title }} - <a href="/quiz/{{ quiz.id }}">View</a></li>
+			{% for quiz in quizzes %}
+			<li>{{ quiz.title }} - 
+				<a href="/quiz/{{ quiz.id }}">View</a>|
+				<a href="/quiz/{{ quiz.id }}/add_question">Add Question</a>
+			</li>
+
 			{% else %}
 			<li>No quizzes available.</li>
 			{% endfor %}
 		</ul>
 		<a href="/logout">Logout</a>
-	</body>
-</html>
+{% endblock %}

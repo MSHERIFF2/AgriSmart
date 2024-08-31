@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_bcrypt import Bcrypt
 from datetime import datetime
+from flask import flash
 
 
 
@@ -55,7 +56,7 @@ def register():
         return redirect(url_for('home'))
     return render_template('register.html')
 
-@app.route('/create_quiz', methods=['GET' 'POST'])
+@app.route('/create_quiz', methods=['GET', 'POST'])
 def create_quiz():
     if request.method == 'POST':
         title = request.form['title']
@@ -63,8 +64,14 @@ def create_quiz():
         new_quiz = Quiz(title=title, description=description)
         db.session.add(new_quiz)
         db.session.commit()
+        flash('Quiz created successfully!', 'success')
         return redirect(url_for('dashboard'))
     return render_template('create_quiz.html')
+
+@app.route('/quiz/<int:quiz_id>')
+def view_quiz(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    return render_template('view_quiz.html', quiz=quiz)
 
 @app.route('/dashboard')
 def dashboard():
@@ -108,6 +115,19 @@ def take_quiz(quiz_id):
         session['score'] = score
         return redirect(url_for('quiz_results', quiz_id=quiz.id))
     return render_template('take_quiz.html', quiz=quiz)
+
+@app.route('/quiz/<int:quiz_id>/add_question', methods=['GET', 'POST'])
+def add_question(quiz_id):
+    quiz = Quiz.query.get_or_404(quiz_id)
+    if request.method == 'POST':
+        question_text = request.form['question_text']
+        answer = request.form['answer']
+        new_question = Question(question_text=question_text, answer=answer, quiz_id=quiz.id)
+        db.session.add(new_question)
+        db.session.commit()
+        return redirect(url_for('view_quiz', quiz_id=quiz.id))
+    return render_template('add_question.html', quiz=quiz)
+
 @app.route('/quiz/<int:quiz_id>/results')
 def quiz_results(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
