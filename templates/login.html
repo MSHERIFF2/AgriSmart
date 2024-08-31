@@ -1,11 +1,8 @@
 <!-- templates/login.html -->
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>Login</title>
-	</head>
-	<body>
+{% extends 'base.html' %}
+		{% block title %}Login{% endblock %}
+	
+{% block content %}
 		<h2>Login Page</h2>
 		<form method="post" action="/login">
 			<label for="username">Username:</label>
@@ -14,5 +11,4 @@
 			<input type="password" id="password" name="password"><br><br>
 			<input type="submit" value="Login">
 		</form>
-	</body>
-</html>
+{% endblock %}
