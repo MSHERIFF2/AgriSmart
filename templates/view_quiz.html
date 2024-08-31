@@ -1,11 +1,8 @@
 <!-- templates/view_quiz.html -->
-<!DOCTYPE html>
-<html lan="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>{{ quiz.title }}</title>
-	</head>
-	<body>
+{% extends 'base.html' %}
+
+		{% block title %}{{ quiz.title }}{% endblock %}
+{% block content %}
 		<h2>{{ quiz.title }}</h2>
 		<p>{{ quiz.description }}</p>
 		<a href="{{ url_for('add_question', quiz_id=quiz.id) }}">Add a Question</a>
@@ -18,5 +15,4 @@
 			{% endfor %}
 		</ul>
 		<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
-	</body>
-</html>
+{% endblock %}
