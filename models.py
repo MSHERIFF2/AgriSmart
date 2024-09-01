@@ -6,6 +6,7 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(120), nullable=False)
+    score = db.Column(db.Integer, default=0)
 
     def __repr__(self):
         return f'<User {self.username}>'
@@ -27,3 +28,14 @@ class Question(db.Model):
 
     def __repr__(self):
         return f'<Question {self.text[:20]}>'
+
+class option(db.Model):
+    __tablename__ = 'option'
+    id = db.Column(db.Integer, primary_key=True)
+    question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)
+    text = db.Column(db.String(255), nullable=False)
+    is_correct = db.Column(db.Boolean, default=False)
+    question = db.relationship('Question', backref=db.backref('option', lazy=True))
+
+    def __repr__(self):
+        return f'<option {self.text[:20]}>'
