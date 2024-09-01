@@ -29,7 +29,7 @@ class Question(db.Model):
     def __repr__(self):
         return f'<Question {self.text[:20]}>'
 
-class option(db.Model):
+class Option(db.Model):
     __tablename__ = 'option'
     id = db.Column(db.Integer, primary_key=True)
     question_id = db.Column(db.Integer, db.ForeignKey('questions.id'), nullable=False)
