@@ -48,21 +48,34 @@ def take_quiz(quiz_id):
 @app.route('/create_quiz', methods=['GET', 'POST'])
 def create_quiz():
     if request.method == 'POST':
-        title = request.form['title']
-        question_text = request.form['question_text']
-        correct_answer = request.form['correct_answer']
+        # Retrieve quiz title and questions from form data
+        quiz_title = request.form.get('quiz_title')
+        questions = request.form.getlist('questions')  # Assumes form inputs have this structure
 
-         # Create a new quiz and question
-        quiz = Quiz(title=title)
+        # Create a new Quiz instance
+        quiz = Quiz(title=quiz_title)
         db.session.add(quiz)
-        db.session.commit()
+        db.session.commit()  # Commit to get quiz.id for foreign key references
 
-        question = Question(text=question_text, correct_answer=correct_answer, quiz_id=quiz.id)
-        db.session.add(question)
-        db.session.commit()
+        for question_text in questions:
+            question = Question(text=question_text, quiz_id=quiz.id)
+            db.session.add(question)
+            db.session.commit()  # Commit to get question.id for foreign key references
+            
+            # Assuming you have form inputs for options associated with each question
+            options = request.form.getlist(f'options_for_{question.id}')  # Adjust key name as necessary
+            correct_option_index = int(request.form.get(f'correct_option_for_{question.id}'))  # Index of the correct option
+            
+            for index, option_text in enumerate(options):
+                is_correct = (index == correct_option_index)
+                option = Option(text=option_text, is_correct=is_correct, question_id=question.id)
+                db.session.add(option)
+            
+            db.session.commit()  # Commit all options for the current question
 
         flash('Quiz created successfully!', 'success')
         return redirect(url_for('dashboard'))
+
     return render_template('create_quiz.html')
 
 @app.route('/quiz/<int:quiz_id>')
