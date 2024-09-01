@@ -54,5 +54,15 @@ def quiz_detail(quiz_id):
         return "Quiz not found", 404
     return render_template('quiz_detail.html', quiz=quiz)
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        # Add user creation logic here
+        flash('Registration successful!', 'success')
+        return redirect(url_for('home'))
+    return render_template('register.html')
+
 if __name__ == '__main__':
     app.run(debug=True)
