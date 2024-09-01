@@ -3,15 +3,14 @@
 
 		{% block title %}{{ quiz.title }}{% endblock %}
 {% block content %}
-		<h2>{{ quiz.title }}</h2>
-		<p>{{ quiz.description }}</p>
-		<form method="post">
-			{% for question in quiz.questions %}
-			<div>
-				<label>{{ loop.index }}. {{ question.question_text }}</label><br>
-				<input type="text" name="answers" required><br><br>
-			</div>
-			{% endfor %}
-			<input type="submit" value="Submit Quiz">
-		</form>
+<form action="{{ url_for('take_quiz', quiz_id=quiz.id) }}" method="POST">
+	          {% for question in quiz.questions %}
+		          <div>
+			              <p>{{ question.text }}</p>
+				          <input type="text" name="question_{{ question.id }}" placeholder="Your answer">
+			  </div>
+		{% endfor %}
+		<button type="submit">Submit Quiz</button>
+</form>
+
 {% endblock %}
