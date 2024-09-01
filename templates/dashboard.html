@@ -1,7 +1,7 @@
 <!-- templates/dashboard.html -->
 {% extends 'base.html' %}
 
-{% bock title %}Dashboard{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
 
@@ -19,5 +19,5 @@
 			<li>No quizzes available.</li>
 			{% endfor %}
 		</ul>
-		<a href="/logout">Logout</a>
+		<a href="{{ url_for('logout') }}">Logout</a>
 {% endblock %}
