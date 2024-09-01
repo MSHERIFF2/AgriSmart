@@ -1,7 +1,7 @@
 # app.py
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from extensions import db
-from models import User, Quiz, Question, option
+from models import User, Quiz, Question, Option
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # Needed for flash messages
