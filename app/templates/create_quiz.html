@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Create Quiz</h2>
+<form method="post">
+    <label for="quiz_name">Quiz Name:</label>
+    <input type="text" id="quiz_name" name="quiz_name" required>
+    <label for="questions">Questions:</label>
+    <textarea id="questions" name="questions" rows="5" required></textarea>
+    <button type="submit">Create Quiz</button>
+</form>
+{% endblock %}
