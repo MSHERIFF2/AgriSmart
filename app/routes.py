@@ -5,8 +5,15 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 main_routes = Blueprint('main', __name__)
 
-@main_routes.route('/')
-def home():
+@main_routes.route('/', methods=['GET', 'POST'])
+def home():    
+     if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        user = User.query.filter_by(username=username).first()
+        if user and check_password_hash(user.password, password):
+            login_user(user)
+            return redirect(url_for('main.dashboard'))
     return render_template('login.html')
 
 @main_routes.route('/dashboard')
@@ -48,16 +55,7 @@ def take_quiz(quiz_id):
         return redirect(url_for('main.dashboard'))
     questions = quiz.questions
     return render_template('take_quiz.html', quiz=quiz, questions=questions)
-@main_routes.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        user = User.query.filter_by(username=username).first()
-        if user and check_password_hash(user.password, password):
-            login_user(user)
-            return redirect(url_for('main.dashboard'))
-    return render_template('login.html')
+
 @main_routes.route('/logout')
 @login_required
 def logout():
