@@ -17,7 +17,7 @@ def create_quiz():
         pass
     return render_template('create_quiz.html')
 
-@main_routes.route('/register' methods=['GET', 'POST'])
+@main_routes.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         # Handle registration
@@ -28,7 +28,9 @@ def register():
 def take_quiz(quiz_id):
     quiz = Quiz.query.get_or_404(quiz_id)
     if request.method == 'POST':
-        # Handle quiz submission
-        pass
+        user_answers = {key: value for key, value in request.form.items() if key.startswith('question_')}
+        # Process answers
+        # For example, check answers and store results
+        return redirect(url_for('main.dashboard'))
     questions = quiz.questions
     return render_template('take_quiz.html', quiz=quiz, questions=questions)
