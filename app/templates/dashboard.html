@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>QuizBuzz</h2>
-<p>Welcome to your dashboard!</p>
+<h1>QuizBuzz</h1>
+<h1>Welcome, {{ current_user.username }}!</h1>
+<button><a href="{{ url_for('logout') }}">Log out </a></button>
+<h2>Available Quizzes</h2>
 <ul>
 <!-- Example link on the dashboard page to take a quiz -->
 {% for quiz in quizzes %}
