@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
-from app.models import User
+from app.models import User, db, Quiz
 from werkzeug.security import check_password_hash, generate_password_hash
 
 main_routes = Blueprint('main', __name__)
@@ -12,7 +12,8 @@ def home():
 @main_routes.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html')
+    quizzes = Quiz.query.all()
+    return render_template('dashboard.html', quizzes=quizzes)
 
 @main_routes.route('/create_quiz', methods=['GET', 'POST'])
 @login_required
