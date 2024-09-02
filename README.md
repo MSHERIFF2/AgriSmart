@@ -1,4 +1,2 @@
-# QuizBuzz
-Portfolio Project
-author muritala sheriffdeen adegoke
-mail: muritalasheriffdeenadegoke@gmail.com
+This is my portfolio project in alx
+author: Muritala Sheriffdeen Adegoke
