@@ -40,13 +40,17 @@ def create_quiz():
      if not current_user.is_admin:
           flash('You do not have permission to create quizzes.')
           return redirect(url_for('dashboard'))
-    if request.method == 'POST':
-        name = request.form['quiz_name']
-        questions = request.form['questions']
-        new_quiz = Quiz(name=name, questions=questions)
+     
+     if request.method == 'POST':
+        quiz_title = request.form.get('title')
+        quiz_description = request.form.get('description')
+        # Handle the creation of a new quiz
+        new_quiz = Quiz(title=quiz_title, description=quiz_description)
         db.session.add(new_quiz)
         db.session.commit()
-        return redirect(url_for('main.dashboard'))
+        flash('Quiz created successfully!')
+        return redirect(url_for('dashboard'))
+
     return render_template('create_quiz.html')
 
 @main_routes.route('/register', methods=['GET', 'POST'])
