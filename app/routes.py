@@ -22,9 +22,24 @@ def dashboard():
     quizzes = Quiz.query.all()
     return render_template('dashboard.html', quizzes=quizzes)
 
+@main_routes.route('/admin_login', methods=['GET', 'POST'])
+def admin_login():
+     if request.method == 'POST':
+          username = request.form.get('username')
+          password = request.form.get('password')
+          user = User.query.filter_by(username=username).first()
+          if user and user.check_password(password) and uer.is_amin:
+               login_user(user)
+               return redirect(url_for('create_quiz'))
+          else:
+               flash('Admin login fail. check your credentials or ensure you are an admin.')
+     return render_template('admin_login.html')
 @main_routes.route('/create_quiz', methods=['GET', 'POST'])
 @login_required
 def create_quiz():
+     if not current_user.is_admin:
+          flash('You do not have permission to create quizzes.')
+          return redirect(url_for('dashboard'))
     if request.method == 'POST':
         name = request.form['quiz_name']
         questions = request.form['questions']
