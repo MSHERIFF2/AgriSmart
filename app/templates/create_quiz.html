@@ -3,6 +3,22 @@
 <head>
     <meta charset="utf-8">
     <title>Create Quiz</title>
+    <script>
+        function addQuestionField() {
+            const container = document.getElementById('questions-container');
+            const index = container.children.length;
+            const questionHtml = `
+                <div>
+                    <label for="question_text_${index}">Question ${index + 1}:</label>
+                    <input type="text" id="question_text_${index}" name="question_text" required>
+                    <br>
+                    <label for="correct_answer_${index}">Correct Answer:</label>
+                    <input type="text" id="correct_answer_${index}" name="correct_answer" required>
+                    <br><br>
+                </div>`;
+            container.insertAdjacentHTML('beforeend', questionHtml);
+        }
+    </script>
 </head>
 <body>
     <h1>Create a New Quiz</h1>
@@ -13,6 +29,18 @@
         <label for="description">Description:</label>
         <textarea id="description" name="description" required></textarea>
         <br>
+        <div id="questions-container">
+            <div>
+                <label for="question_text_0">Question 1:</label>
+                <input type="text" id="question_text_0" name="question_text" required>
+                <br>
+                <label for="correct_answer_0">Correct Answer:</label>
+                <input type="text" id="correct_answer_0" name="correct_answer" required>
+                <br><br>
+            </div>
+        </div>
+        <button type="button" onclick="addQuestionField()">Add Another Question</button>
+        <br><br>
         <button type="submit">Create Quiz</button>
     </form>
     <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
