@@ -3,4 +3,7 @@
 {% block content %}
 <h2>QuizBuzz</h2>
 <p>Welcome to your dashboard!</p>
+<!-- Example link on the dashboard page to take a quiz -->
+<a href="{{ url_for('main.take_quiz', quiz_id=quiz.id) }}">Take this Quiz</a>
+
 {% endblock %}
