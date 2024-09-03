@@ -7,10 +7,10 @@
 <body>
     <h1>Admin Dashboard</h1>
     <ul>
-        <li><a href="{{ url_for('create_quiz') }}">Create a Quiz</a></li>
+        <li><a href="{{ url_for('main.create_quiz') }}">Create a Quiz</a></li>
         <!-- Add more admin options here if needed -->
     </ul>
-    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
-    <a href="{{ url_for('logout') }}">Log Out</a>
+    <a href="{{ url_for('main.dashboard') }}">Back to Dashboard</a>
+    <a href="{{ url_for('main.logout') }}">Log Out</a>
 </body>
 </html>
