@@ -2,10 +2,13 @@ from flask import Flask
 from .routes import main_routes
 from flask_login import LoginManager
 from app.models import db, User
+from config import Config
+from flask_wtf import CSRFProtect
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object('config.Config')
+    app.config.from_object(Config)
+    csrf = CSRFProtect(app)
 
     db.init_app(app)
 
