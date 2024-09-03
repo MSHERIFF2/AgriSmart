@@ -24,16 +24,34 @@ def dashboard():
 
 @main_routes.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
-     if request.method == 'POST':
-          username = request.form.get('username')
-          password = request.form.get('password')
-          user = User.query.filter_by(username=username).first()
-          if user and user.check_password(password) and uer.is_amin:
-               login_user(user)
-               return redirect(url_for('create_quiz'))
-          else:
-               flash('Admin login fail. check your credentials or ensure you are an admin.')
-     return render_template('admin_login.html')
+     if current_user.is_authenticated:
+        if current_user.is_admin:
+            return redirect(url_for('admin_page'))
+        else:
+            return redirect(url_for('dashboard'))
+    
+    form = LoginForm()  # Assuming you have a form class for login
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and user.check_password(form.password.data):
+            if user.is_admin:
+                login_user(user)
+                return redirect(url_for('admin_page'))
+            else:
+                flash('You are not authorized to access the admin section.')
+                return redirect(url_for('login'))
+    
+    return render_template('admin_login.html', form=form)
+
+@main_routes.route('/admin_page')
+@login_required
+def admin_page():
+    if not current_user.is_admin:
+        flash('You do not have permission to access this page.')
+        return redirect(url_for('home'))
+
+    return render_template('admin_page.html')
+
 @main_routes.route('/create_quiz', methods=['GET', 'POST'])
 @login_required
 def create_quiz():
