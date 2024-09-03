@@ -22,8 +22,5 @@
             {{ form.submit() }}
         </div>
     </form>
-    <a href="{{ url_for('main.register') }}">Register</a>
-    {% if current_user.is_authenticated and current_user.is_admin %}
-        <a href="{{ url_for('main.admin_login') }}">Admin Page</a>
-    {% endif %}
+    <button><a href="{{ url_for('main.register') }}">Sign Up</a></button>
 {% endblock %}

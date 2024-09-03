@@ -5,6 +5,9 @@
     <title>Admin Login</title>
 </head>
 <body>
+   <a href="{{ url_for('main.home') }}">Back to Home</a>
+   <button><a href="{{ url_for('main.admin_register') }}">Create Account</a></button>
+		             </div>
    <h1>Admin Login</h1>
     <form method="post">
         {{ form.hidden_tag() }}
@@ -25,7 +28,7 @@
         <div>
             {{ form.submit() }}
         </div>
+	</div>
     </form>
-    <a href="{{ url_for('main.admin_login') }}">Back to Login</a>
 </body>
 </html>

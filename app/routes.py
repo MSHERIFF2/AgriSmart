@@ -31,7 +31,7 @@ def admin_login():
         if current_user.is_admin:
             return redirect(url_for('admin_page'))
         else:
-            return redirect(url_for('dashboard'))
+            return redirect(url_for('admin_login'))
     
     form = LoginForm()  # Assuming you have a form class for login
     
@@ -55,6 +55,11 @@ def admin_page():
         return redirect(url_for('home'))
 
     return render_template('admin_page.html')
+
+@main_routes.route('/admin_register')
+def admin_register():
+    return render_template("admin_register.html")
+
 
 @main_routes.route('/create_quiz', methods=['GET', 'POST'])
 @login_required
@@ -101,9 +106,14 @@ def register():
         username = request.form['username']
         password = generate_password_hash(request.form['password'])
         new_user = User(username=username, password=password)
-        db.session.add(new_user)
-        db.session.commit()
-        return redirect(url_for('main.login'))
+        try:
+            db.session.add(new_user)
+            db.session.commit()
+            return redirect(url_for('main.admin_login'))
+        except Exception as e:
+            db.session.rollback()
+            flash('Error registering user: {}'.format(str(e)), 'error')
+
     return render_template('register.html')
 
 @main_routes.route('/take_quiz/<int:quiz_id>', methods=['GET', 'POST'])
