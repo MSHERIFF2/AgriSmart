@@ -10,7 +10,8 @@ main_routes = Blueprint('main', __name__)
 def home():
     form = LoginForm()
     if form.validate_on_submit():
-        pass
+        username = form.username.data
+        password = form.password.data
 
     if request.method == 'POST':
         username = request.form['username']
