@@ -56,9 +56,25 @@ def admin_page():
 
     return render_template('admin_page.html')
 
-@main_routes.route('/admin_register')
+@main_routes.route('/admin_register', methods=['GET', 'POST'])
 def admin_register():
-    return render_template("admin_register.html")
+    if request.method == 'POST':
+        # You may want to include a verification step here
+        # For example, checking a special admin code or invitation link
+        username = request.form['username']
+        password = generate_password_hash(request.form['password'])
+        admin_code = request.form.get('admin_code')  # Example of an admin verification step
+
+        # Verify the admin code (implement your own logic)
+        if admin_code == 'YOUR_ADMIN_SECRET_CODE':
+            new_admin = User(username=username, password=password, is_admin=True)
+            db.session.add(new_admin)
+            db.session.commit()
+            return redirect(url_for('main.admin_login'))
+        else:
+            flash('Invalid admin code', 'danger')
+    
+    return render_template('admin_register.html')
 
 
 @main_routes.route('/create_quiz', methods=['GET', 'POST'])
