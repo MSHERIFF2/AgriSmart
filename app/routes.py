@@ -2,12 +2,17 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from app.models import User, db, Quiz
 from werkzeug.security import check_password_hash, generate_password_hash
+from .forms import LoginForm
 
 main_routes = Blueprint('main', __name__)
 
 @main_routes.route('/', methods=['GET', 'POST'])
-def home():    
-     if request.method == 'POST':
+def home():
+    form = LoginForm()
+    if form.validate_on_submit():
+        pass
+
+    if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
@@ -24,13 +29,14 @@ def dashboard():
 
 @main_routes.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
-     if current_user.is_authenticated:
+    if current_user.is_authenticated:
         if current_user.is_admin:
             return redirect(url_for('admin_page'))
         else:
             return redirect(url_for('dashboard'))
     
     form = LoginForm()  # Assuming you have a form class for login
+    
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user and user.check_password(form.password.data):
@@ -58,8 +64,8 @@ def create_quiz():
      if not current_user.is_admin:
         flash('You do not have permission to create quizzes.')
         return redirect(url_for('dashboard'))
-
-    if request.method == 'POST':
+     
+     if request.method == 'POST':
         quiz_title = request.form.get('title')
         quiz_description = request.form.get('description')
         question_texts = request.form.getlist('question_text')
@@ -89,7 +95,7 @@ def create_quiz():
         flash('Quiz created successfully!')
         return redirect(url_for('dashboard'))
 
-    return render_template('create_quiz.html')
+        return render_template('create_quiz.html')
 
 @main_routes.route('/register', methods=['GET', 'POST'])
 def register():
