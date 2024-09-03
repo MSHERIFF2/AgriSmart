@@ -1,1 +1,14 @@
-<h1>This is admin registration page </h1>
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Register</h2>
+<form method="post", action="{{ url_for('main.admin_register') }}">
+	{{ form.hidden_tag() }}
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+    <button type="submit">Register</button>
+</form>
+{% endblock %}
+
