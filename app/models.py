@@ -11,7 +11,8 @@ class User(db.Model, UserMixin):
 
 class Quiz(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), nullable=False)
+    title = db.Column(db.String(150), nullable=False)
+    description = db.Column(db.Text, nullable=True)
     questions = db.relationship('Question', backref='quiz', lazy=True)
 
 class Question(db.Model):
@@ -19,5 +20,13 @@ class Question(db.Model):
     quiz_id = db.Column(db.Integer, db.ForeignKey('quiz.id'), nullable=False)
     text = db.Column(db.String(255), nullable=False)
     options = db.Column(db.String(255), nullable=False)
-    correct_option = db.Column(db.String(50), nullable=False)
+    
+class Option(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(255), nullable=False)
+    is_correct = db.Column(db.Boolean, default=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+    question = db.relationship('Question', backref=db.backref('options', lazy=True))
+
+
 
