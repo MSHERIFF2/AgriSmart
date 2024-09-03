@@ -29,9 +29,9 @@ def dashboard():
 def admin_login():
     if current_user.is_authenticated:
         if current_user.is_admin:
-            return redirect(url_for('admin_page'))
+            return redirect(url_for('main.admin_page'))
         else:
-            return redirect(url_for('admin_login'))
+            return redirect(url_for('main.admin_login'))
     
     form = LoginForm()  # Assuming you have a form class for login
     
@@ -40,10 +40,10 @@ def admin_login():
         if user and user.check_password(form.password.data):
             if user.is_admin:
                 login_user(user)
-                return redirect(url_for('admin_page'))
+                return redirect(url_for('main.admin_page'))
             else:
-                flash('You are not authorized to access the admin section.')
-                return redirect(url_for('login'))
+                flash('You are not authorized to access the admin section.', 'danger')
+                return redirect(url_for('main.home'))
     
     return render_template('admin_login.html', form=form)
 
@@ -82,7 +82,7 @@ def admin_register():
 def create_quiz():
      if not current_user.is_admin:
         flash('You do not have permission to create quizzes.')
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('main.dashboard'))
      
      if request.method == 'POST':
         quiz_title = request.form.get('title')
