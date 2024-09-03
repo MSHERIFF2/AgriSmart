@@ -24,6 +24,6 @@
     </form>
     <a href="{{ url_for('main.register') }}">Register</a>
     {% if current_user.is_authenticated and current_user.is_admin %}
-        <a href="{{ url_for('main.admin_page') }}">Admin Page</a>
+        <a href="{{ url_for('main.admin_login') }}">Admin Page</a>
     {% endif %}
 {% endblock %}
