@@ -38,16 +38,36 @@ def admin_login():
 @login_required
 def create_quiz():
      if not current_user.is_admin:
-          flash('You do not have permission to create quizzes.')
-          return redirect(url_for('dashboard'))
-     
-     if request.method == 'POST':
+        flash('You do not have permission to create quizzes.')
+        return redirect(url_for('dashboard'))
+
+    if request.method == 'POST':
         quiz_title = request.form.get('title')
         quiz_description = request.form.get('description')
-        # Handle the creation of a new quiz
+        question_texts = request.form.getlist('question_text')
+        options_texts = request.form.getlist('option_text')
+        correct_option_indices = request.form.getlist('correct_option')
+
         new_quiz = Quiz(title=quiz_title, description=quiz_description)
         db.session.add(new_quiz)
         db.session.commit()
+
+        question_index = 0
+        while question_index < len(question_texts):
+            new_question = Question(text=question_texts[question_index], quiz_id=new_quiz.id)
+            db.session.add(new_question)
+            db.session.commit()
+
+            option_start_index = question_index * 4
+            for i in range(option_start_index, option_start_index + 4):
+                if i < len(options_texts):
+                    is_correct = str(i - option_start_index) == correct_option_indices[question_index]
+                    new_option = Option(text=options_texts[i], is_correct=is_correct, question_id=new_question.id)
+                    db.session.add(new_option)
+
+            db.session.commit()
+            question_index += 1
+
         flash('Quiz created successfully!')
         return redirect(url_for('dashboard'))
 
