@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from app.models import User, db, Quiz
 from werkzeug.security import check_password_hash, generate_password_hash
-from .forms import LoginForm
+from app.forms import LoginForm
 
 main_routes = Blueprint('main', __name__)
 
@@ -12,15 +12,12 @@ def home():
     if form.validate_on_submit():
         username = form.username.data
         password = form.password.data
-
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
         user = User.query.filter_by(username=username).first()
+
         if user and check_password_hash(user.password, password):
             login_user(user)
             return redirect(url_for('main.dashboard'))
-    return render_template('login.html')
+    return render_template('login.html', form=form)
 
 @main_routes.route('/dashboard')
 @login_required
