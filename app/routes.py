@@ -66,7 +66,7 @@ def admin_register():
         admin_code = request.form.get('admin_code')  # Example of an admin verification step
 
         # Verify the admin code (implement your own logic)
-        if admin_code == 'YOUR_ADMIN_SECRET_CODE':
+        if admin_code == 'M08170205738$s':
             new_admin = User(username=username, password=password, is_admin=True)
             db.session.add(new_admin)
             db.session.commit()
