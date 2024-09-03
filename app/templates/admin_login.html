@@ -5,16 +5,27 @@
     <title>Admin Login</title>
 </head>
 <body>
-    <h1>Admin Login</h1>
+   <h1>Admin Login</h1>
     <form method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <br>
-        <button type="submit">Login</button>
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.username.label }}<br>
+            {{ form.username() }}<br>
+            {% for error in form.username.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.password.label }}<br>
+            {{ form.password() }}<br>
+            {% for error in form.password.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
     </form>
-    <a href="{{ url_for('home') }}">Back to Login</a>
+    <a href="{{ url_for('login') }}">Back to Login</a>
 </body>
 </html>
