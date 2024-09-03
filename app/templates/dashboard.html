@@ -3,7 +3,7 @@
 {% block content %}
 <h1>QuizBuzz</h1>
 <h1>Welcome, {{ current_user.username }}!</h1>
-<button><a href="{{ url_for('logout') }}">Log out </a></button>
+<button><a href="{{ url_for('main.logout') }}">Log out </a></button>
 <h2>Available Quizzes</h2>
 <ul>
 <!-- Example link on the dashboard page to take a quiz -->
