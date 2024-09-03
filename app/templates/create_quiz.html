@@ -12,8 +12,21 @@
                     <label for="question_text_${index}">Question ${index + 1}:</label>
                     <input type="text" id="question_text_${index}" name="question_text" required>
                     <br>
-                    <label for="correct_answer_${index}">Correct Answer:</label>
-                    <input type="text" id="correct_answer_${index}" name="correct_answer" required>
+                    <label for="option_text_${index}_0">Option 1:</label>
+                    <input type="text" id="option_text_${index}_0" name="option_text" required>
+                    <input type="radio" name="correct_option_${index}" value="0">
+                    <br>
+                    <label for="option_text_${index}_1">Option 2:</label>
+                    <input type="text" id="option_text_${index}_1" name="option_text" required>
+                    <input type="radio" name="correct_option_${index}" value="1">
+                    <br>
+                    <label for="option_text_${index}_2">Option 3:</label>
+                    <input type="text" id="option_text_${index}_2" name="option_text" required>
+                    <input type="radio" name="correct_option_${index}" value="2">
+                    <br>
+                    <label for="option_text_${index}_3">Option 4:</label>
+                    <input type="text" id="option_text_${index}_3" name="option_text" required>
+                    <input type="radio" name="correct_option_${index}" value="3">
                     <br><br>
                 </div>`;
             container.insertAdjacentHTML('beforeend', questionHtml);
@@ -34,8 +47,21 @@
                 <label for="question_text_0">Question 1:</label>
                 <input type="text" id="question_text_0" name="question_text" required>
                 <br>
-                <label for="correct_answer_0">Correct Answer:</label>
-                <input type="text" id="correct_answer_0" name="correct_answer" required>
+                <label for="option_text_0_0">Option 1:</label>
+                <input type="text" id="option_text_0_0" name="option_text" required>
+                <input type="radio" name="correct_option_0" value="0">
+                <br>
+                <label for="option_text_0_1">Option 2:</label>
+                <input type="text" id="option_text_0_1" name="option_text" required>
+                <input type="radio" name="correct_option_0" value="1">
+                <br>
+                <label for="option_text_0_2">Option 3:</label>
+                <input type="text" id="option_text_0_2" name="option_text" required>
+                <input type="radio" name="correct_option_0" value="2">
+                <br>
+                <label for="option_text_0_3">Option 4:</label>
+                <input type="text" id="option_text_0_3" name="option_text" required>
+                <input type="radio" name="correct_option_0" value="3">
                 <br><br>
             </div>
         </div>
