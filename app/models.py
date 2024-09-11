@@ -1,7 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from sqlalchemy.orm import relationship
+from app import db
 
-db = SQLAlchemy()
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -41,7 +42,7 @@ class FarmingTips(db.Model):
 class Listing(db.Model):
     __tablename__ = 'listing'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     item_name = db.Column(db.String(120), nullable=False)
     price = db.Column(db.Float, nullable=False)
     description = db.Column(db.Text, nullable=True)
@@ -53,6 +54,7 @@ class Listing(db.Model):
 
 class Session(db.Model):
     __tablename__ = 'sessions'
-    id = db.Column(db.String(255), primary_key=True)
+    __table_args__ = {'extend_existing': True}
+    id = db.Column(db.Integer, primary_key=True)
     data = db.Column(db.LargeBinary)
     expiry = db.Column(db.DateTime)
