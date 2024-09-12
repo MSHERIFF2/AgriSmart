@@ -1,12 +1,9 @@
+<!-- templates/index.html -->
 {% extends 'base.html' %}
 
-{% block title %}AgriSmart - Home{% endblock %}
+{% block title %}Home | AgriSmart{% endblock %}
 
 {% block content %}
-<section class="intro">
-    <img src="{{ url_for('static', filename='images/cover.jpg') }}" alt="Cover Image" class="cover-image">
-    <h1>AgriSmart</h1>
-    <p>Empowering Nigerian farmers with real-time data and insights.</p>
-    <a href="{{ url_for('market_prices') }}" class="btn btn-primary">View Deployed App</a>
-</section>
+<h1>Welcome to AgriSmart</h1>
+<p>Empowering Nigerian farmers with real-time data and insights.</p>
 {% endblock %}
