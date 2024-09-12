@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}AgriSmart - Weather Forecast{% endblock %}
+
+{% block content %}
+<section class="weather-forecast">
+    <h2>Weather Forecast</h2>
+    <ul>
+        {% for forecast in weather_forecasts %}
+        <li>
+            <strong>Date:</strong> {{ forecast.date.strftime('%Y-%m-%d') }}<br>
+            <strong>Region:</strong> {{ forecast.region }}<br>
+            <strong>Temperature:</strong> {{ forecast.temperature }}°C<br>
+            <strong>Conditions:</strong> {{ forecast.conditions }}
+        </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}
