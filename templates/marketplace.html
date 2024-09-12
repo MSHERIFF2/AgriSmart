@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}AgriSmart - Marketplace{% endblock %}
+
+{% block content %}
+<section class="marketplace">
+    <h2>Marketplace</h2>
+    <div class="listings">
+        {% for listing in listings %}
+        <div class="listing">
+            <h3>{{ listing.item_name }}</h3>
+            <p><strong>Price:</strong> ₦{{ listing.price }}</p>
+            <p>{{ listing.description }}</p>
+            <img src="{{ listing.image_url }}" alt="{{ listing.item_name }}">
+            <p><strong>Location:</strong> {{ listing.location }}</p>
+            <p><strong>Posted on:</strong> {{ listing.created_at.strftime('%Y-%m-%d') }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
