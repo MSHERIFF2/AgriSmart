@@ -1,31 +1,24 @@
+<!-- templates/market_prices.html -->
 {% extends 'base.html' %}
 
-{% block title %}AgriSmart - Market Prices{% endblock %}
+{% block title %}Market Prices | AgriSmart{% endblock %}
 
 {% block content %}
-<section class="market-prices">
-    <h2>Market Prices</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Price (₦)</th>
-                <th>Unit</th>
-                <th>Location</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for price in market_prices %}
-            <tr>
-                <td>{{ price.item_name }}</td>
-                <td>{{ price.price }}</td>
-                <td>{{ price.unit }}</td>
-                <td>{{ price.location }}</td>
-                <td>{{ price.created_at.strftime('%Y-%m-%d') }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</section>
+<h1>Market Prices</h1>
+<table>
+    <tr>
+        <th>Item Name</th>
+        <th>Price</th>
+        <th>Unit</th>
+        <th>Location</th>
+    </tr>
+    {% for price in prices %}
+    <tr>
+        <td>{{ price.item_name }}</td>
+        <td>{{ price.price }}</td>
+        <td>{{ price.unit }}</td>
+        <td>{{ price.location }}</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
