@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.models import FarmingTips
 from app import db 
+from app.auth.utils import admin_required
 
 farming_tips = Blueprint('farming_tips', __name__)
 
@@ -15,6 +16,7 @@ def get_farming_tip(id):
     return jsonify(tip.to_dic())
 
 @farming_tips.route('/farming_tips', methods=['POST'])
+@admin_required
 def create_farming_tip():
     data = request.get_json()
     #Add data validation and admin check
