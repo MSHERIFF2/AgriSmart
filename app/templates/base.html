@@ -1,40 +1,42 @@
+<!-- templates/base.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}AgriSmart{% endblock %}</title>
-    <!-- Link to CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <!-- Navigation Bar -->
     <header>
         <nav>
             <ul>
-                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
                 <li><a href="{{ url_for('market_prices') }}">Market Prices</a></li>
                 <li><a href="{{ url_for('weather_forecast') }}">Weather Forecast</a></li>
                 <li><a href="{{ url_for('farming_tips') }}">Farming Tips</a></li>
                 <li><a href="{{ url_for('marketplace') }}">Marketplace</a></li>
                 <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('auth.login') }}">Login</a></li>
+                {% if 'user_id' in session %}
+                    <li><a href="{{ url_for('user_profile') }}">Profile</a></li>
+                    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
 
-    <!-- Main Content -->
     <main>
-        {% block content %}{% endblock %}
+        {% block content %}
+        <!-- Content from individual templates will be injected here -->
+        {% endblock %}
     </main>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2024 AgriSmart. All rights reserved.</p>
     </footer>
 
-    <!-- Link to JavaScript -->
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </body>
 </html>
