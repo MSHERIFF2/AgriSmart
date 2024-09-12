@@ -1,31 +1,22 @@
+<!-- templates/dashboard.html -->
 {% extends 'base.html' %}
 
-{% block title %}AgriSmart - Dashboard{% endblock %}
+{% block title %}Dashboard | AgriSmart{% endblock %}
 
 {% block content %}
-<section class="dashboard">
-    <h2>Dashboard</h2>
-    <div class="dashboard-content">
-        <h3>Latest Market Prices</h3>
-        <ul>
-            {% for price in user_market_prices %}
-            <li>{{ price.item_name }}: ₦{{ price.price }} ({{ price.unit }})</li>
-            {% endfor %}
-        </ul>
-
-        <h3>Weather Updates</h3>
-        <ul>
-            {% for forecast in user_weather_forecasts %}
-            <li>{{ forecast.date.strftime('%Y-%m-%d') }} - {{ forecast.conditions }} ({{ forecast.temperature }}°C)</li>
-            {% endfor %}
-        </ul>
-
-        <h3>Saved Farming Tips</h3>
-        <ul>
-            {% for tip in user_farming_tips %}
-            <li>{{ tip.title }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-</section>
+<h1>Dashboard</h1>
+<h2>Your Listings</h2>
+<ul>
+    {% for listing in data.listings %}
+    <li>
+        <h2>{{ listing.item_name }}</h2>
+        <p><strong>Price:</strong> {{ listing.price }}</p>
+        <p><strong>Description:</strong> {{ listing.description }}</p>
+        <p><strong>Location:</strong> {{ listing.location }}</p>
+        {% if listing.image_url %}
+            <img src="{{ listing.image_url }}" alt="{{ listing.item_name }}">
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
 {% endblock %}
