@@ -1,19 +1,25 @@
-<!-- templates/farming_tips.html -->
-{% extends 'base.html' %}
+<!-- templates/farm_tips.html -->
 
-{% block title %}Farming Tips | AgriSmart{% endblock %}
+{% extends "base.html" %}
+
+{% block title %}Farming Tips{% endblock %}
 
 {% block content %}
-<h1>Farming Tips</h1>
-<ul>
-    {% for tip in tips %}
-    <li>
-        <h2>{{ tip.title }}</h2>
-        <p>{{ tip.content }}</p>
-        {% if tip.image_url %}
-            <img src="{{ tip.image_url }}" alt="{{ tip.title }}">
-        {% endif %}
-    </li>
-    {% endfor %}
+<h2> Farming TIps </h2>
+<ul> 
+	{% for tip in tips %}
+	<div class="farm_container"> 
+		<div class="farmtips">
+			<h3>{{ tip.title }}</h3>
+			<p>{{ tip.content }}</p>
+			<p>Date: {{ tip.date }}</p>
+		</div>
+	</div>
+	{% endfor %}
 </ul>
+
+
+
+
+
 {% endblock %}

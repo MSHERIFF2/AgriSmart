@@ -1,0 +1,24 @@
+<!-- templates/crops.html -->
+{% extends "base.html" %}
+
+{% block title %}crops{% endblock %}
+
+{% block content %}
+<h2>Crops List</h2>
+<table>
+	<tr>
+		<th> No. </th>
+		<th> Crop Name </th>
+		<th> Crop Price </th>
+	</tr>
+	
+	{% for crop in crops %}
+	<tr>
+	<td>{{ crop.id }}</td>
+	<td>{{ crop.name }}</td>
+	<td>NGN {{ crop_prices[crop.id] if crop.id in crop_prices else '0.0' }}</td>
+	</tr>
+	{% endfor %}
+	
+</table>
+{% endblock %}

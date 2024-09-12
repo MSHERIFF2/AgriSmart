@@ -1,24 +1,15 @@
-<!-- templates/market_prices.html -->
-{% extends 'base.html' %}
+<!-- template/market_price.html -->
+{% extends "base.html" %}
 
-{% block title %}Market Prices | AgriSmart{% endblock %}
+{% block title %}Market price{% endblock %}
 
 {% block content %}
-<h1>Market Prices</h1>
-<table>
-    <tr>
-        <th>Item Name</th>
-        <th>Price</th>
-        <th>Unit</th>
-        <th>Location</th>
-    </tr>
-    {% for price in prices %}
-    <tr>
-        <td>{{ price.item_name }}</td>
-        <td>{{ price.price }}</td>
-        <td>{{ price.unit }}</td>
-        <td>{{ price.location }}</td>
-    </tr>
-    {% endfor %}
-</table>
+	<p> This page will display the market price of crops and livestock </a>
+	<h2>Market prices</h2>
+	<ul>
+		{% for price in prices %}
+			<li> Crop: {{ price.crop.name }} - Price: {{ price.price }} - Date: {{ price.date }} </li>
+			{% endfor %}
+	</ul>
+		
 {% endblock %}

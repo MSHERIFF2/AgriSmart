@@ -1,0 +1,22 @@
+<!-- templates/livestock.html -->
+{% extends "base.html" %}
+{% block title %}Livestock{% endblock %}
+
+{% block content %}
+	<h2>Livestock List</h2>
+	<table>
+		<tr> 
+			<th> No. </th>
+			<th> Livestocks </th>
+			<th> Prices </th>
+		</tr>
+		{% for livestock in livestocks %}
+		
+		<tr>
+			<td>{{ livestock.id }} </td>
+			<td> {{ livestock.name }}</td>
+			<td>NGN {{ livestock_prices[livestock.id] if livestock.id in livestock_prices else '0.0' }}
+		</tr>
+		{% endfor %}
+	</table>
+{% endblock %}

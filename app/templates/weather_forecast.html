@@ -1,24 +1,13 @@
-<!-- templates/weather_forecast.html -->
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}Weather Forecast | AgriSmart{% endblock %}
+{% block title %}Weather Forecast{% endblock %}
 
 {% block content %}
-<h1>Weather Forecast</h1>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Region</th>
-        <th>Temperature</th>
-        <th>Conditions</th>
-    </tr>
-    {% for forecast in forecasts %}
-    <tr>
-        <td>{{ forecast.date }}</td>
-        <td>{{ forecast.region }}</td>
-        <td>{{ forecast.temperature }}°C</td>
-        <td>{{ forecast.conditions }}</td>
-    </tr>
-    {% endfor %}
-</table>
+   <h2>Weather Forecast</h2>
+   <ul class="weather_container">
+	   {% for forecast in forecasts %}
+	   <li>Date: {{ forecast.forecast_date }} - Temperature: {{ forecast.temperature }}°C - Condition: {{ forecast.condition }}
+	   </li>
+	   {% endfor %}
+																				        </ul>
 {% endblock %}
