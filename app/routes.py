@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, session
-from app.models import MarketPrice, WeatherForecast, FarmingTip, User, Listing
+from app.models import MarketPrice, WeatherForecast, FarmingTips, User, Listing
 
 app = Flask(__name__)
 
@@ -23,7 +23,7 @@ def weather_forecast():
 # Route for the farming tips feature
 @app.route('/farming_tips')
 def farming_tips():
-    tips = FarmingTip.query.all()
+    tips = FarmingTips.query.all()
     return render_template('farming_tips.html', tips=tips)
 
 # Route for the user profile
