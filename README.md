@@ -1,6 +1,6 @@
-# FarmSmart
+# AgriSmart
 Project Author: Muritala Sheriffdeen Adegoke
-App Name: FarmSmart
+App Name: AgriSmart
 
 Road Map: 
 
