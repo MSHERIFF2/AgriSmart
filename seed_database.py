@@ -4,9 +4,9 @@ from app import app, db
 from app.models import Crop, Livestock, MarketPrice, FarmingTip, WeatherForecast
 from datetime import date
 
-# Create an application context
+# Create an application context.
 with app.app_context():
-    # Clear existing data
+    # Clear existing data.
     try:
         MarketPrice.query.delete()
         Crop.query.delete()
@@ -19,7 +19,7 @@ with app.app_context():
         db.session.rollback()
         print(f"Error clearing data: {e}")
 
-    # Sample data
+    # Sample data.
     crops = [
         Crop(name='Maize'),
         Crop(name='Cassava'),
