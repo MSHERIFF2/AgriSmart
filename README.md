@@ -1,5 +1,5 @@
 # AgriSmart
-Project Author: Muritala Sheriffdeen Adegoke
+Project Author: Muritala Sheriffdeen Adegoke and Musa Kabir
 App Name: AgriSmart
 
 Road Map: 
